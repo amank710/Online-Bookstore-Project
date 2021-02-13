@@ -6,8 +6,8 @@
 I have decided to create an **online bookstore** application as my personal project. This will allow people to browse 
 purchase books from the comfort of their homes.
 
-There are a large variety of books to choose from in this online store. These books are all reasonably priced with various **discount** options available. The bookstore is based out of India and is able to deliver to a 
-number of the metropolitan cities in India.
+There are a large variety of books to choose from in this online store. These books are all reasonably priced with various **discount** options available. The bookstore is based out of Vancouver and is able to deliver to a 
+number of large cities in Canada.
 
 I have always been interested in reading. During the COVID-19 pandemic it became difficult to venture out to physical book stores
 to purchase books. I found that there were not many online stores that were **both** *user-friendly* and *explicitly dedicated to selling books.*
