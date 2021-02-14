@@ -6,10 +6,12 @@ import model.Customer;
 
 import static model.Cart.getBooksInCart;
 
+// Produces the Bill based on items in the cart
 public class Bill {
     private static double rawAmount;
     private static double discountedPrice;
 
+    //EFFECTS: Prints the first 1/3rd of the Bill
     public static void viewBillPart1() {
         rawAmount = 0.0;
         discountedPrice = 0.0;
@@ -36,6 +38,7 @@ public class Bill {
         viewBillPart2();
     }
 
+    //EFFECTS: Prints the second 1/3rd of the Bill
     public static void viewBillPart2() {
         System.out.println("*****************************************************************************************");
         System.out.printf("%-24s", "Total = ");
@@ -54,6 +57,7 @@ public class Bill {
         viewBillPart3();
     }
 
+    //EFFECTS: Prints the third 1/3rd of the Bill
     public static void viewBillPart3() {
         System.out.println();
         System.out.printf("%-24s", "Sales Tax = ");

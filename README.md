@@ -15,11 +15,14 @@ Thus, I felt strongly about trying to create a ***user-friendly online bookstore
 
 ### User Stories
 
-- As a user, I want to be able to browse the available books by genre
-- As a user, I want to be able to add a book to my cart
-- As a user, I want to be able to add multiple copies of the same book to my cart
-- As a user, I want to be able to remove a book from my cart
 - As a user, I want to be able to view the discounts I can avail
+- As a user, I want to be able to browse the available books by genre
+- As a user, I want to be able to add books to my cart
+- As a user, I want to be able to add multiple copies of the same book to my cart
 - As a user, I want to be able to view my bill at any given moment
 - As a user, I want to be able to pay the bill through credit card transaction
 - As a user, I want to be able to exit the application at any point of time
+- As a user, I want to be able to enter my desired address for the delivery of the books
+- As a user, I want to be able to remove a book from my cart
+
+***NOTE:*** THE FIRST 8 USER STORIES HAVE BEEN IMPLEMENTED

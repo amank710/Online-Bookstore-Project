@@ -260,8 +260,8 @@ public class Bookstore {
         }
     }
 
-    //Modifies: Cart
-    //Effects: stores the quantity of a certain book the user wants.
+    //MODIFIES: Cart
+    //EFFECTS: stores the quantity of a certain book the user wants.
     private void chooseQuantity(Book book) {
         System.out.println("Enter number of books:");
         int entry2 = input.nextInt();

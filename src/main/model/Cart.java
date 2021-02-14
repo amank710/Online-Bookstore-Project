@@ -13,7 +13,7 @@ public class Cart {
     }
 
     //REQUIRES: quantity is >=0
-    //Modifies: this and Book
+    //MODIFIES: this and Book
     //EFFECTS: Adds a book to the cart if it is not already there. If the book is already in the cart
     //         it just increments the number of that book in the cart.
     public static void addToCart(Book book, int quantity) {
