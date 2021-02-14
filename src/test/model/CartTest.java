@@ -59,6 +59,7 @@ public class CartTest {
     }
     @Test
     void testDiscountNoDiscountBoundary() {
+        assertEquals(0.0,cartTest.discount(0.0));
         assertEquals(0.0,cartTest.discount(4.9));
     }
 
@@ -69,6 +70,7 @@ public class CartTest {
     @Test
     void testDiscountFivePercentBoundary() {
         assertEquals(0.05 * 5.0,cartTest.discount(5.0));
+        assertEquals(0.05 * 12.90,cartTest.discount(12.90));
     }
 
     @Test
@@ -78,6 +80,7 @@ public class CartTest {
     @Test
     void testDiscountTenPercentBoundary() {
         assertEquals(0.10 * 13.0,cartTest.discount(13.0));
+        assertEquals(0.10 * 15.9,cartTest.discount(15.9));
     }
 
     @Test
@@ -87,11 +90,12 @@ public class CartTest {
     @Test
     void testDiscountFifteenPercentBoundary() {
         assertEquals(0.15 * 16.0,cartTest.discount(16.0));
+        assertEquals(0.15 * 29.90,cartTest.discount(29.90));
     }
 
     @Test
     void testDiscountTwentyPercent() {
-        assertEquals(0.20 * 54.0,cartTest.discount(54.0));
+        assertEquals(0.20 * 104.0,cartTest.discount(104.0));
     }
     @Test
     void testDiscountTwentyPercentBoundary() {
