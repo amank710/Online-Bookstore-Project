@@ -55,9 +55,9 @@ public class CartTest {
 
     @Test
     void testDiscountNoDiscount() {
-        assertEquals(-1.1 * 0.2,cartTest.discount(-1.1));
         assertEquals(0.0,cartTest.discount(4.0));
         assertEquals(0.0,cartTest.discount(4.5));
+        assertEquals(-1.1 * 0.2,cartTest.discount(-1.1));
     }
     @Test
     void testDiscountNoDiscountBoundary() {
