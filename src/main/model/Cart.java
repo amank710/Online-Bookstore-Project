@@ -38,6 +38,7 @@ public class Cart {
         return booksInCart;
     }
 
+    //REQUIRES: rawAmount > 0
     //EFFECTS: Calculates and returns the discount awarded based on the Raw Price of the books. The discounts are based
     //         on the the deals shown in the opening screen of the application
     public static double discount(double rawAmount) {
