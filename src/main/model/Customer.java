@@ -28,6 +28,14 @@ public class Customer {
         Customer.deliveryCost = deliveryCost;
     }
 
+    public static void setDeliveryCity(City deliveryCity) {
+        Customer.deliveryCity = deliveryCity;
+    }
+
+    public static void setAddress(String address) {
+        Customer.address = address;
+    }
+
     public static String getFirstName() {
         return firstName;
     }
@@ -41,15 +49,16 @@ public class Customer {
         return deliveryCost;
     }
 
-    public static void setDeliveryCity(City deliveryCity) {
-        Customer.deliveryCity = deliveryCity;
-    }
-
     public static City getDeliveryCity() {
         return deliveryCity;
     }
 
-    public static void setAddress(String address) {
-        Customer.address = address;
+
+    public static String getEmail() {
+        return email;
+    }
+
+    public static String getAddress() {
+        return address;
     }
 }

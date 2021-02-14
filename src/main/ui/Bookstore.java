@@ -14,6 +14,7 @@ public class Bookstore {
     private Scanner input;
     private String firstName;
     private String lastName;
+    private Cart cart = new Cart();
 
     Bookstore() {
         input = new Scanner(System.in);
@@ -246,7 +247,7 @@ public class Bookstore {
     private void chooseQuantity(Book book) {
         System.out.println("Enter number of books:");
         int entry2 = input.nextInt();
-        addToCart(book, entry2);
+        cart.addToCart(book, entry2);
         System.out.println("Book(s) have successfully been added to your cart");
         mainMenu();
     }
