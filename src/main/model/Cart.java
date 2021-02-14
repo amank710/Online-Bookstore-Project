@@ -41,17 +41,25 @@ public class Cart {
     //EFFECTS: Calculates and returns the discount awarded based on the Raw Price of the books. The discounts are based
     //         on the the deals shown in the opening screen of the application
     public static double discount(double rawAmount) {
-        if (rawAmount >= 0.0 && rawAmount < 5.0) {
-            return 0;
+        if (rawAmount >= 0.0) {
+            if (rawAmount < 5.0) {
+                return 0;
+            }
         }
-        if (rawAmount >= 5.0 && rawAmount < 13.0) {
-            return 0.05 * rawAmount;
+        if (rawAmount >= 5.0) {
+            if (rawAmount < 13.0) {
+                return 0.05 * rawAmount;
+            }
         }
-        if (rawAmount >= 13.0 && rawAmount < 16.0) {
-            return 0.1 * rawAmount;
+        if (rawAmount >= 13.0) {
+            if (rawAmount < 16.0) {
+                return 0.1 * rawAmount;
+            }
         }
-        if (rawAmount >= 16.0  &&  rawAmount < 30.0) {
-            return 0.15 * rawAmount;
+        if (rawAmount >= 16.0) {
+            if (rawAmount < 30.0) {
+                return 0.15 * rawAmount;
+            }
         }
         return 0.2 * rawAmount;
     }
