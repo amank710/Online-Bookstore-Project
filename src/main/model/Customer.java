@@ -1,11 +1,16 @@
 package model;
 
-// Represents a customer with a first name, last name and Email address
+// Represents a customer with a first name, last name, Email address, city they want the books delivered to,
+// cost of that delivery, address they want the books delivered to.
 public class Customer {
     private static String firstName;
     private static String lastName;
     private static String email;
+    private static City deliveryCity;
     private static Double deliveryCost;
+    private static String address;
+
+    static Customer customer = new Customer();
 
     public static void setFirstName(String name1) {
         firstName = name1;
@@ -16,10 +21,35 @@ public class Customer {
     }
 
     public static void setEmail(String email) {
-        Customer.email = email;
+        customer.email = email;
     }
 
     public static void setDeliveryCost(Double deliveryCost) {
         Customer.deliveryCost = deliveryCost;
+    }
+
+    public static String getFirstName() {
+        return firstName;
+    }
+
+    public static String getLastName() {
+        return lastName;
+    }
+
+
+    public static Double getDeliveryCost() {
+        return deliveryCost;
+    }
+
+    public static void setDeliveryCity(City deliveryCity) {
+        Customer.deliveryCity = deliveryCity;
+    }
+
+    public static City getDeliveryCity() {
+        return deliveryCity;
+    }
+
+    public static void setAddress(String address) {
+        Customer.address = address;
     }
 }
