@@ -7,13 +7,14 @@ import model.Customer;
 import static model.Cart.getBooksInCart;
 
 public class Bill {
-    private static double rawAmount = 0.0;
-    private static double discountedPrice = 0.0;
+    private static double rawAmount;
+    private static double discountedPrice;
 
     public static void viewBillPart1() {
+        rawAmount = 0.0;
+        discountedPrice = 0.0;
         System.out.println("                    Aman's Online Bookstore                 ");
         System.out.println(Customer.getFirstName() + " " + Customer.getLastName());
-        System.out.println();
         System.out.println("                                           BILL                                          ");
         System.out.println("*****************************************************************************************");
         System.out.println();

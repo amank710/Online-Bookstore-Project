@@ -1,6 +1,6 @@
 package model;
 
-// Represents a book with a name, author's name and genre
+// Represents a book with a name, author's name, genre and quantity of that specific book in the cart
 public class Book {
     private String name;
     private String author;
@@ -37,6 +37,10 @@ public class Book {
     public static final Book[] MYSTERYBOOKS = new Book[] {THEDAVINCICODE,THEBIGSLEEP,GONEGIRL,SHERLOCKHOLMES};
     public static final Book[] DRAMABOOKS = new Book[] {FAULTINOURSTARS,MACBETH,DEATHOFASALESMAN,TOKILLAMOCKINGBIRD};
 
+
+    //REQUIRES: A positive value for the price of the book
+    //EFFECTS: Initialises the name, author, genre and the price of a book. Also initialises the number of that specific
+    //         book in the cart to 0;
     Book(String name, String author, String genre, double price) {
         this.name = name;
         this.author = author;
@@ -65,6 +69,8 @@ public class Book {
         return quantity;
     }
 
+    //MODIFIES: this
+    // EFFECTS: Add the integer quantity to the number of the specific book in the cart already.
     public void addQuantity(int quantity) {
         this.quantity = this.quantity + quantity;
     }

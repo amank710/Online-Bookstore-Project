@@ -4,11 +4,10 @@ import model.*;
 import java.util.Scanner;
 
 import static model.Book.*;
-import static model.Cart.addToCart;
 import static model.City.DELIVERYCITIES;
 import static model.City.NO_OF_CITIES;
 
-// Bookstore Application
+// Online Bookstore Application
 public class Bookstore {
 
     private Scanner input;
@@ -93,7 +92,7 @@ public class Bookstore {
                 }
             }
         }
-        Customer.setLastName(this.firstName);
+        Customer.setLastName(this.lastName);
         enterEmail();
     }
 
@@ -124,32 +123,40 @@ public class Bookstore {
 
     //EFFECTS: Displays the main menu options to the user
     void mainMenu() {
-        System.out.println();
         System.out.println("Press: ");
         System.out.println("1 to view the books available for sale");
         System.out.println("2 to view your bill");
         System.out.println("3 to leave this page");
-        System.out.println();
         int entry = input.nextInt();
         if (entry == 1) {
             viewGenres();
         } else if (entry == 2) {
-            Bill.viewBillPart1();
-            int pay = input.nextInt();
-            if (pay == 1) {
-                enterAddress();
-            } else {
+            if (cart.getBooksInCart().size() == 0) {
+                System.out.println("Your cart is currently empty.");
                 mainMenu();
+            } else {
+                Bill.viewBillPart1();
+                int pay = input.nextInt();
+                if (pay == 1) {
+                    enterAddress();
+                } else {
+                    mainMenu();
+                }
             }
-        }
-        if (entry == 3) {
-            System.out.println("Thank you for visiting Aman's Bookstore!");
-            System.out.println("We hope to see you again soon. Goodbye!");
-            System.exit(0);
+        } else {
+            exitSequence();
         }
     }
 
-    //EFFECTS: Displays the various genres available to the user
+    //EFFECTS: Terminates the program after showing a farewell message
+    private void exitSequence() {
+        System.out.println("Thank you for visiting Aman's Bookstore!");
+        System.out.println("We hope to see you again soon. Goodbye!");
+        System.exit(0);
+    }
+
+    //EFFECTS: Displays the various genres available to the user and allows users to pick what genre books they want to
+    //         see. Otherwise they can go back to the main menu
     private void viewGenres() {
         System.out.println("Select desired genre from the list below:");
         for (int i = 1; i <= NO_OF_GENRES; i++) {
@@ -172,6 +179,8 @@ public class Bookstore {
         }
     }
 
+    //EFFECTS: Shows the list of action books available and allows users to choose which book they want to buy.
+    //         Otherwise they can go back to the main menu.
     private void showActionBooks() {
         System.out.println("Select desired book from the list below.");
         System.out.println("The corresponding prices (CAD) are given alongside:");
@@ -190,6 +199,9 @@ public class Bookstore {
         }
     }
 
+
+    //EFFECTS: Shows the list of comic books available and allows users to choose which book they want to buy.
+    //         Otherwise they can go back to the main menu.
     private void showComicBooks() {
         System.out.println("Select desired book from the list below.");
         System.out.println("The corresponding prices (CAD) are given alongside:");
@@ -208,6 +220,8 @@ public class Bookstore {
         }
     }
 
+    //EFFECTS: Shows the list of mystery books available and allows users to choose which book they want to buy.
+    //         Otherwise they can go back to the main menu.
     private void showMysteryBooks() {
         System.out.println("Select desired book from the list below.");
         System.out.println("The corresponding prices (CAD) are given alongside:");
@@ -226,6 +240,8 @@ public class Bookstore {
         }
     }
 
+    //EFFECTS: Shows the list of mystery books available and allows users to choose which book they want to buy.
+    //         Otherwise they can go back to the main menu.
     private void showDramaBooks() {
         System.out.println("Select desired book from the list below.");
         System.out.println("The corresponding prices (CAD) are given alongside:");
@@ -244,6 +260,8 @@ public class Bookstore {
         }
     }
 
+    //Modifies: Cart
+    //Effects: stores the quantity of a certain book the user wants.
     private void chooseQuantity(Book book) {
         System.out.println("Enter number of books:");
         int entry2 = input.nextInt();
@@ -252,20 +270,26 @@ public class Bookstore {
         mainMenu();
     }
 
+    //MODIFIES: Customer
+    //EFFECTS: Takes and stores the address of the delivery
     public void enterAddress() {
-        System.out.println("Please enter your Address");
-        Customer.setAddress(input.nextLine());
+        System.out.println("Please enter the desired address for delivery");
+        String entry = input.next();
+        input.nextLine();
+        Customer.setAddress(entry);
         toPay();
     }
 
+    //EFFECTS: Accepts users credit card number and CVV number so they can pay online
     private void toPay() {
         System.out.println("Please enter your 16 digit credit card number");
         String creditCardNumber = input.next();
         System.out.println("Please enter your 3 digit CVV number");
         String cvv = input.next();
         System.out.println("Your account has been debited.");
-        System.out.print("Your purchase will be available for pick up from our nearest " + Customer.getDeliveryCity());
+        System.out.print("Your purchase will our nearest" + Customer.getDeliveryCity().getCityName());
         System.out.println(" outlet in 3 days");
+        System.out.println("The package should be at your door in 4 days.");
         System.out.println("Thank you for visiting!!!");
     }
 

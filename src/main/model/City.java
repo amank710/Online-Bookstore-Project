@@ -1,5 +1,6 @@
 package model;
 
+// Stores the name of the cities that can be delivered to. Also sets and gets the desired city for delivery
 public class City {
     private String cityName;
     private Double deliveryCharge;
@@ -12,6 +13,8 @@ public class City {
 
     public static final City[] DELIVERYCITIES = new City[] {VANCOUVER,TORONTO,OTTAWA,EDMONTON,CALGARY};
 
+    //REQUIRES: A 0 or positive number for charge
+    //EFFECTS: Sets the name of the city to String name, and initialises the delivery charge to that city
     City(String name, Double charge) {
         cityName = name;
         deliveryCharge = charge;
