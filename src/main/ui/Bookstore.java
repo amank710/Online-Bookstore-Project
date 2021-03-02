@@ -1,6 +1,11 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import static model.Book.*;
@@ -14,9 +19,14 @@ public class Bookstore {
     private String firstName;
     private String lastName;
     private Cart cart = new Cart();
+    private static final String JSON_STORE = "./data/cart.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     Bookstore() {
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         mainScreen();
     }
 
@@ -122,29 +132,69 @@ public class Bookstore {
     }
 
     //EFFECTS: Displays the main menu options to the user
-    void mainMenu() {
+    public void mainMenu() {
         System.out.println("Press: ");
         System.out.println("1 to view the books available for sale");
         System.out.println("2 to view your bill");
-        System.out.println("3 to leave this page");
-        int entry = input.nextInt();
-        if (entry == 1) {
+        System.out.println("3 to save current cart to file");
+        System.out.println("4 to load cart from file");
+        System.out.println("5 to leave this page");
+        String entry = input.next();
+        processEntry(entry);
+    }
+
+    //EFFECTS: Processes user command
+    private void processEntry(String entry) {
+        if (entry.equals("1")) {
             viewGenres();
-        } else if (entry == 2) {
+        } else if (entry.equals("2")) {
             if (cart.getBooksInCart().size() == 0) {
                 System.out.println("Your cart is currently empty.");
                 mainMenu();
             } else {
                 Bill.viewBillPart1();
                 int pay = input.nextInt();
-                if (pay == 1) {
-                    enterAddress();
-                } else {
-                    mainMenu();
-                }
+                payOrMainMenu(pay);
             }
-        } else {
+        } else if (entry.equals("3")) {
+            saveCart();
+        } else if (entry.equals("4")) {
+            loadCart();
+        } else if (entry.equals("5")) {
             exitSequence();
+        } else {
+            System.out.println("Selection not valid...");
+            mainMenu();
+        }
+    }
+
+    private void payOrMainMenu(int pay) {
+        if (pay == 1) {
+            enterAddress();
+        } else {
+            mainMenu();
+        }
+    }
+
+    private void saveCart() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(cart);
+            jsonWriter.close();
+            System.out.println("Saved cart to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+        mainMenu();
+    }
+
+    private void loadCart() {
+        try {
+            cart = jsonReader.read();
+            System.out.println("Loaded cart from " + JSON_STORE);
+            mainMenu();
+        } catch (Exception e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 

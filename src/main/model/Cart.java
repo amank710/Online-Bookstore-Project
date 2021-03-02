@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 //Represents the Shopping Cart of the customer
-public class Cart {
+public class Cart implements Writable {
     private static ArrayList<Book> booksInCart = new ArrayList<>();
 
     //EFFECTS: Initialises the ArrayList booksInCart which contains all the books that have been
@@ -63,6 +67,24 @@ public class Cart {
             }
         }
         return 0.2 * rawAmount;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("booksInCart", thingiesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this cart as a JSON array
+    private JSONArray thingiesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Book b : booksInCart) {
+            jsonArray.put(b.toJson());
+        }
+
+        return jsonArray;
     }
 }
 

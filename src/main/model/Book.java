@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a book with a name, author's name, genre and quantity of that specific book in the cart
-public class Book {
+public class Book implements Writable {
     private String name;
     private String author;
     private String genre;
@@ -41,7 +44,7 @@ public class Book {
     //REQUIRES: A positive value for the price of the book
     //EFFECTS: Initialises the name, author, genre and the price of a book. Also initialises the number of that specific
     //         book in the cart to 0;
-    Book(String name, String author, String genre, double price) {
+    public Book(String name, String author, String genre, double price) {
         this.name = name;
         this.author = author;
         this.genre = genre;
@@ -75,5 +78,14 @@ public class Book {
         this.quantity = this.quantity + quantity;
     }
 
-
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("author", author);
+        json.put("genre", genre);
+        json.put("price", price);
+        json.put("quantity", quantity);
+        return json;
+    }
 }
