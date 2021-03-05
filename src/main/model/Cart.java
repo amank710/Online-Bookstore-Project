@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 //Represents the Shopping Cart of the customer
 public class Cart implements Writable {
-    private static ArrayList<Book> booksInCart = new ArrayList<>();
+    private static ArrayList<Book> booksInCart;
 
     //EFFECTS: Initialises the ArrayList booksInCart which contains all the books that have been
     //         added to the cart already
@@ -40,6 +40,10 @@ public class Cart implements Writable {
 
     public static ArrayList<Book> getBooksInCart() {
         return booksInCart;
+    }
+
+    public int numBooksInCart() {
+        return booksInCart.size();
     }
 
     //REQUIRES: rawAmount > 0

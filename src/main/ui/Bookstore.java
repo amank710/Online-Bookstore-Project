@@ -193,8 +193,9 @@ public class Bookstore {
             cart = jsonReader.read();
             System.out.println("Loaded cart from " + JSON_STORE);
             mainMenu();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+            mainMenu();
         }
     }
 

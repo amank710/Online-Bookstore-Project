@@ -1,0 +1,16 @@
+{"booksInCart": [
+  {
+    "quantity": 2,
+    "author": "Vic Bloom",
+    "price": 9,
+    "name": "Archies",
+    "genre": "Comics"
+  },
+  {
+    "quantity": 1,
+    "author": "Gillian Flynn",
+    "price": 4,
+    "name": "Gone Girl",
+    "genre": "Mystery"
+  }
+]}
