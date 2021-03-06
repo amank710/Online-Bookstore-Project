@@ -23,6 +23,8 @@ Thus, I felt strongly about trying to create a ***user-friendly online bookstore
 - As a user, I want to be able to pay the bill through credit card transaction
 - As a user, I want to be able to exit the application at any point of time
 - As a user, I want to be able to enter my desired address for the delivery of the books
+- As a user, I want to be able to save my cart to file
+- As a user, I want to be able to be able to load my cart from file 
 - As a user, I want to be able to remove a book from my cart
 
-***NOTE:*** THE FIRST 8 USER STORIES HAVE BEEN IMPLEMENTED
+***NOTE:*** THE FIRST 10 USER STORIES HAVE BEEN IMPLEMENTED
