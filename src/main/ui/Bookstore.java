@@ -168,6 +168,7 @@ public class Bookstore {
         }
     }
 
+    // EFFECTS: Checks if customer selected option to pay or return to main menu and accordingly calls the right method
     private void payOrMainMenu(int pay) {
         if (pay == 1) {
             enterAddress();
@@ -176,6 +177,10 @@ public class Bookstore {
         }
     }
 
+    // CITATION: Code obtained and modified from JsonSerializationDemo
+    //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: Saves content of the cart to the file JSON_STORE.
+    //          Throws exception if unable to write to the desired file.
     private void saveCart() {
         try {
             jsonWriter.open();
@@ -188,6 +193,10 @@ public class Bookstore {
         mainMenu();
     }
 
+    // CITATION: Code obtained and modified from JsonSerializationDemo
+    //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
+    // EFFECTS: loads cart from file. Throws exception if file to load from cannot be found.
     private void loadCart() {
         try {
             cart = jsonReader.read();

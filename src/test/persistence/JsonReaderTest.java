@@ -9,6 +9,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// CITATION: Code obtained and modified from JsonSerializationDemo
+//           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public class JsonReaderTest extends JsonTest {
 
     @Test
@@ -27,7 +29,7 @@ public class JsonReaderTest extends JsonTest {
         JsonReader reader = new JsonReader("./data/testReaderEmptyCart.json");
         try {
             Cart c = reader.read();
-            assertEquals(0, c.numBooksInCart());
+            assertEquals(0, c.getNumBooksInCart());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

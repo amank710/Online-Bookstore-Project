@@ -1,0 +1,16 @@
+{"booksInCart": [
+    {
+        "quantity": 2,
+        "author": "Tana French",
+        "price": 5,
+        "name": "In The Woods",
+        "genre": "Mystery"
+    },
+    {
+        "quantity": 4,
+        "author": "Ryan Stegman",
+        "price": 2,
+        "name": "Venom",
+        "genre": "Comic"
+    }
+]}

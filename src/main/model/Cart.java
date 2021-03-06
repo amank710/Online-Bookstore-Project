@@ -42,7 +42,8 @@ public class Cart implements Writable {
         return booksInCart;
     }
 
-    public int numBooksInCart() {
+    // EFFECTS: Returns the number of different books in the cart
+    public static int getNumBooksInCart() {
         return booksInCart.size();
     }
 
@@ -74,12 +75,18 @@ public class Cart implements Writable {
     }
 
     @Override
+
+    // CITATION: Code obtained and modified from JsonSerializationDemo
+    //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("booksInCart", thingiesToJson());
         return json;
     }
 
+    // CITATION: Code obtained and modified from JsonSerializationDemo
+    //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns things in this cart as a JSON array
     private JSONArray thingiesToJson() {
         JSONArray jsonArray = new JSONArray();

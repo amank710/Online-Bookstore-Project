@@ -79,6 +79,10 @@ public class Book implements Writable {
     }
 
     @Override
+
+    // CITATION: Code obtained and modified from JsonSerializationDemo
+    //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: returns this as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);

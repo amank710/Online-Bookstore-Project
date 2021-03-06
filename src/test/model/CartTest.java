@@ -3,8 +3,7 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-//import static model.Cart.booksInCart;
-import static model.Cart.getBooksInCart;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
@@ -51,6 +50,30 @@ public class CartTest {
         cartTest.addToCart(testBook2,2);
         assertEquals(2,cartTest.getBooksInCart().size());
         assertEquals(testBook2,cartTest.getBooksInCart().get(1));
+    }
+
+    @Test
+    void testNumBooksInCartEmptyCart() {
+        assertEquals(0, cartTest.getNumBooksInCart());
+    }
+
+    @Test
+    void testNumBooksInCartOneBook() {
+        Book testBook = new Book("In The Woods","Tana French","Mystery",5.00);
+        assertEquals(0, cartTest.getNumBooksInCart());
+        cartTest.addToCart(testBook,4);
+        assertEquals(1, cartTest.getNumBooksInCart());
+    }
+
+    @Test
+    void testNumBooksInCartMultipleBook() {
+        Book testBook = new Book("In The Woods","Tana French","Mystery",5.00);
+        Book testBook2 = new Book("Venom","Ryan Stegman","Comic",2.00);
+        assertEquals(0, cartTest.getNumBooksInCart());
+        cartTest.addToCart(testBook,4);
+        assertEquals(1, cartTest.getNumBooksInCart());
+        cartTest.addToCart(testBook2,1);
+        assertEquals(2, cartTest.getNumBooksInCart());
     }
 
     @Test
