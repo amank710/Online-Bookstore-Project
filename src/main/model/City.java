@@ -12,6 +12,7 @@ public class City {
     public static final City CALGARY = new City("Calgary",1.20);
 
     public static final City[] DELIVERYCITIES = new City[] {VANCOUVER,TORONTO,OTTAWA,EDMONTON,CALGARY};
+    public static final String[] DELIVERYCITYNAMES = new String[] {"Vancouver","Toronto","Ottawa","Edmonton","Calgary"};
 
     //REQUIRES: A 0 or positive number for charge
     //EFFECTS: Sets the name of the city to String name, and initialises the delivery charge to that city
