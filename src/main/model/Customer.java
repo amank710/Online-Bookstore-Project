@@ -30,6 +30,7 @@ public class Customer {
 
     public static void setDeliveryCity(City deliveryCity) {
         Customer.deliveryCity = deliveryCity;
+        setDeliveryCost(deliveryCity.getDeliveryCharge());
     }
 
     public static void setAddress(String address) {

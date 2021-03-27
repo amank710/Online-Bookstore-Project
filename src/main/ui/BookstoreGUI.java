@@ -1,18 +1,23 @@
 package ui;
 
 import model.Book;
+import model.Cart;
 import model.Customer;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.DecimalFormat;
 
 import static model.Book.*;
+import static model.Cart.getBooksInCart;
+import static model.Cart.getNumBooksInCart;
 import static model.City.*;
 
 public class BookstoreGUI extends JFrame implements ActionListener {
@@ -20,7 +25,11 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     public static final int WIDTH = 600;
     public static final int HEIGHT = 500;
     public static final String SOUNDLOCATION = "./data/Button_Sound.wav";
+    private DecimalFormat df2 = new DecimalFormat("#.##");
+    double rawAmount;
+    double discountedPrice;
     private Book bookToAdd;
+    private Cart cart = new Cart();
     private JFrame frame;
     private JPanel startingPanel;
     private JPanel mainMenuPanel;
@@ -58,12 +67,15 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     private JButton salesmanButton;
     private JButton mockingbirdButton;
     private JButton addToCartButton;
+    private JButton payNowButton;
     private JTextField firstName;
     private JTextField lastName;
     private JTextField email;
     private JTextField enteredQuantity;
     private JLabel successMessage;
     private JComboBox cityList;
+    int lineplacex = 10;
+    int lineplacey = 10;
 
 
     BookstoreGUI() {
@@ -439,8 +451,83 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     }
 
     public void viewCart() {
+        rawAmount = 0.0;
+        discountedPrice = 0.0;
         viewCartPanel = new JPanel();
         setupPanel(viewCartPanel);
+        if (cart.getBooksInCart().size() == 0) {
+            displayEmptyCart();
+        } else {
+            JLabel name = new JLabel(Customer.getFirstName() + " " + Customer.getLastName());
+            name.setBounds(10,7,400,50);
+            viewCartPanel.add(name);
+            String[] cols = {"Item","Unit Price", "Quantity", "Total"};
+            DefaultTableModel tableModel = new DefaultTableModel(cols,0);
+            JTable items = new JTable(tableModel);
+            JScrollPane scrollPane = new JScrollPane(items);
+            scrollPane.setBounds(10, 50, 550, 150);
+            for (int i = 0; i < cart.getNumBooksInCart(); i++) {
+                String bookName = cart.getBooksInCart().get(i).getName();
+                Double unitPrice = cart.getBooksInCart().get(i).getPrice();
+                int quantity = getBooksInCart().get(i).getQuantity();
+                double total = unitPrice * quantity;
+                Object[] data = {bookName, unitPrice, quantity, total};
+                tableModel.addRow(data);
+                rawAmount = rawAmount + total;
+            }
+            viewCartPanel.add(scrollPane);
+            JLabel totalAmount = new JLabel("Total = " + rawAmount + " CAD");
+            totalAmount.setBounds(10,210,400,20);
+
+            double discountAwarded = Double.parseDouble(df2.format(cart.discount(rawAmount)));
+            JLabel discountLabel = new JLabel("Discount = " + discountAwarded + " CAD");
+            discountLabel.setBounds(10,230,400,20);
+
+            discountedPrice = rawAmount - discountAwarded;
+            JLabel discountedTotalLabel = new JLabel("Discounted Price = " + discountedPrice + " CAD");
+            discountedTotalLabel.setBounds(10,250,400,20);
+
+            double salesTax = Double.parseDouble(df2.format(0.12 * discountedPrice));
+            JLabel salesTaxLabel = new JLabel("Sales Tax = " + salesTax + " CAD");
+            salesTaxLabel.setBounds(10,270,400,20);
+
+            JLabel freightChargesLabel = new JLabel("Freight Charges = " + Customer.getDeliveryCost() + " CAD");
+            freightChargesLabel.setBounds(10,290,400,20);
+
+            double finalAmount = discountedPrice + Customer.getDeliveryCity().getDeliveryCharge() + salesTax;
+            JLabel amountPayableLabel = new JLabel("Amount Payable = " + finalAmount + " CAD");
+            amountPayableLabel.setBounds(10,310,400,20);
+            viewCartPanel.add(totalAmount);
+            viewCartPanel.add(discountLabel);
+            viewCartPanel.add(discountedTotalLabel);
+            viewCartPanel.add(salesTaxLabel);
+            viewCartPanel.add(freightChargesLabel);
+            viewCartPanel.add(amountPayableLabel);
+
+            mainMenuButton = new JButton("Main Menu");
+            mainMenuButton.setBounds(130, 350, 140, 30);
+            mainMenuButton.addActionListener(this);
+            viewCartPanel.add(mainMenuButton);
+
+            payNowButton = new JButton("Pay Now");
+            payNowButton.setBounds(300, 350, 140, 30);
+            payNowButton.addActionListener(this);
+            viewCartPanel.add(payNowButton);
+        }
+        frame.setContentPane(viewCartPanel);
+    }
+
+    private void displayEmptyCart() {
+        JLabel emptyCart = new JLabel("There are currently no books in the cart");
+        emptyCart.setBounds(150,200,400,50);
+        emptyCart.setFont(new Font("Serif", Font.PLAIN, 20));
+        System.out.println("Hello");
+        mainMenuButton = new JButton("Main Menu");
+        mainMenuButton.setBounds(165, 350, 280, 30);
+        mainMenuButton.addActionListener(this);
+
+        viewCartPanel.add(emptyCart);
+        viewCartPanel.add(mainMenuButton);
     }
 
     public static void main(String[] args) {
@@ -477,6 +564,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
             } else {
                 Customer.setDeliveryCity(VANCOUVER);
             }
+            System.out.println(Customer.getDeliveryCity().getCityName() + " " + Customer.getDeliveryCost());
             mainMenu();
 
         } else {
@@ -489,7 +577,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         if (e.getSource() == booksButton) {
             viewGenres();
         } else if (e.getSource() == viewCartButton) {
-            frame.setContentPane(viewCartPanel);
+            viewCart();
         } else if (e.getSource() == mainMenuButton) {
             mainMenu();
         } else if (e.getSource() == actionButton) {
@@ -545,7 +633,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == mockingbirdButton) {
             viewBookInfo(TOKILLAMOCKINGBIRD);
         } else if (e.getSource() == addToCartButton) {
-            bookToAdd.addQuantity(Integer.parseInt(enteredQuantity.getText()));
+            cart.addToCart(bookToAdd,Integer.parseInt(enteredQuantity.getText()));
             successMessage.setText("The book(s) have been added to your cart successfully!");
             System.out.println(bookToAdd.getQuantity());
         }
