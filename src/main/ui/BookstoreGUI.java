@@ -32,8 +32,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     public static final String SOUNDLOCATION = "./data/Button_Sound.wav";
 
     private DecimalFormat df2 = new DecimalFormat("#.##");
-    double rawAmount;
-    double discountedPrice;
+    private double rawAmount;
+    private double discountedPrice;
     private Book bookToAdd;
     private Cart cart = new Cart();
 
@@ -110,8 +110,9 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setVisible(true);
     }
 
-    //EFFECTS: displays the opening screen of the bookstore application with all the discount offers. Also accepts the
-    //         user's name, email and city of delivery
+    // MODIFIES: this
+    // EFFECTS: displays the opening screen of the bookstore application with all the discount offers. Also accepts the
+    //          user's name, email and city of delivery
     private void userInfoPanel() {
         startingPanel = new JPanel();
         setupPanel(startingPanel);
@@ -126,20 +127,22 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         startingPanel.add(enter);
     }
 
+    // MODIFIES: this
     // EFFECTS: Shows all the discounts available
     private void showDiscountOffers() {
         JLabel label1 = new JLabel("Welcome to Aman's book store, Vancouver");
+        label1.setFont(new Font("Serif", Font.PLAIN, 26));
         JLabel label2 = new JLabel("EXCLUSIVE OFFERS:");
         JLabel label3 = new JLabel("On total bill price over CAD 5.00 get 5% off!\n");
         JLabel label4 = new JLabel("On total bill price over CAD 13.00 get 10% off!\n");
         JLabel label5 = new JLabel("On total bill price over CAD 16.00 get 15% off!\n");
         JLabel label6 = new JLabel("On total bill price over CAD 30.00 get 20% off!\n");
-        label1.setBounds(175, 5, 500, 50);
-        label2.setBounds(10, 20, 500, 50);
-        label3.setBounds(10, 30, 500, 50);
-        label4.setBounds(10, 40, 500, 50);
-        label5.setBounds(10, 50, 500, 50);
-        label6.setBounds(10, 60, 500, 50);
+        label1.setBounds(60, 5, 500, 50);
+        label2.setBounds(10, 50, 500, 50);
+        label3.setBounds(10, 65, 500, 50);
+        label4.setBounds(10, 80, 500, 50);
+        label5.setBounds(10, 95, 500, 50);
+        label6.setBounds(10, 110, 500, 50);
 
         startingPanel.add(label1);
         startingPanel.add(label2);
@@ -149,6 +152,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         startingPanel.add(label6);
     }
 
+    // MODIFIES: this
     // EFFECTS: Sets up the text fields to accepts the user's first name and last name
     private void enterName() {
         JLabel labelFirst = new JLabel("First name:");
@@ -169,6 +173,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         startingPanel.add(labelLast);
     }
 
+    // MODIFIES: this
     // EFFECTS: Sets up a text field for the user to enter their e-mail address. Also provides a drop-down box for the
     //          the user to select their desired city for delivery
     private void enterEmailAndCity() {
@@ -190,7 +195,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         startingPanel.add(cityList);
     }
 
-    //EFFECTS: Displays the main menu options to the user
+    // MODIFIES: this
+    // EFFECTS: Displays the main menu options to the user
     public void mainMenu() {
         mainMenuPanel = new JPanel();
         setupPanel(mainMenuPanel);
@@ -218,21 +224,22 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         mainMenuPanel.add(saveButton);
         mainMenuPanel.add(loadButton);
 
-        displaysaveAndLoadMessages();
+        displaySaveAndLoadMessages();
 
         frame.setContentPane(mainMenuPanel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Generated the title for the main menu page
     private void displayMainMenuTitle() {
         JLabel menuTitle = new JLabel("MAIN MENU");
-        menuTitle.setFont(new Font("Serif", Font.PLAIN, 24));
+        menuTitle.setFont(new Font("Serif", Font.PLAIN, 30));
         menuTitle.setBounds(215, 10, 200, 50);
         mainMenuPanel.add(menuTitle);
     }
 
     // EFFECTS: Displays the message if cart is saved or loaded to/from a file
-    private void displaysaveAndLoadMessages() {
+    private void displaySaveAndLoadMessages() {
         saveMessage = new JLabel("Saved cart to " + JSON_STORE);
         saveMessage.setVisible(false);
         saveMessage.setFont(new Font("Serif", Font.PLAIN, 22));
@@ -246,6 +253,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         mainMenuPanel.add(loadMessage);
     }
 
+    //MODIFIES: this
     //EFFECTS: Displays the various genres available to the user and allows users to pick what genre books they want to
     //         see. Otherwise they can go back to the main menu
     public void viewGenres() {
@@ -273,10 +281,11 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(genresPanel);
     }
 
+    //MODIFIES: this
     //EFFECTS: Displays the title and instructions of the genres panel
     private void genresPanelInstructions() {
         JLabel genresTitle = new JLabel("GENRES");
-        genresTitle.setFont(new Font("Serif", Font.PLAIN, 24));
+        genresTitle.setFont(new Font("Serif", Font.PLAIN, 30));
         genresTitle.setBounds(210, 10, 200, 50);
         genresPanel.add(genresTitle);
 
@@ -286,6 +295,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         genresPanel.add(genresInstructions);
     }
 
+    // MODIFIES: this
     // EFFECTS: Adds buttons corresponding to each genre on the genres panel
     private void addButtonToGenresPanel(JButton button, int x, int y) {
         button.setBounds(x, y, 250, 30);
@@ -293,6 +303,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         genresPanel.add(button);
     }
 
+    // MODIFIES: this
     //EFFECTS: Shows the list of action books available and allows users to choose which book they want to buy.
     //         Otherwise they can go back to the main menu.
     public void viewActionBooks() {
@@ -325,6 +336,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(actionPanel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Adds all the listed books to the panel representing the genre they belong to
     private static void addBooksToPanel(JPanel panel, JButton b1, JButton b2, JButton b3, JButton b4, JButton menu) {
         panel.add(b1);
@@ -334,7 +346,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         panel.add(menu);
     }
 
-    //EFFECTS: Shows the list of comic books available and allows users to choose which book they want to buy.
+    // MODIFIES: this
+    // EFFECTS: Shows the list of comic books available and allows users to choose which book they want to buy.
     //         Otherwise they can go back to the main menu.
     public void viewComicBooks() {
         comicsPanel = new JPanel();
@@ -366,7 +379,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(comicsPanel);
     }
 
-    //EFFECTS: Shows the list of mystery books available and allows users to choose which book they want to buy.
+    // MODIFIES: this
+    // EFFECTS: Shows the list of mystery books available and allows users to choose which book they want to buy.
     //         Otherwise they can go back to the main menu.
     public void viewMysteryBooks() {
         mysteryPanel = new JPanel();
@@ -398,7 +412,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(mysteryPanel);
     }
 
-    //EFFECTS: Shows the list of drama books available and allows users to choose which book they want to buy.
+    // MODIFIES: this
+    // EFFECTS: Shows the list of drama books available and allows users to choose which book they want to buy.
     //         Otherwise they can go back to the main menu.
     public void viewDramaBooks() {
         dramaPanel = new JPanel();
@@ -430,13 +445,15 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(dramaPanel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Sets the background colour, bounds and layout of a panel
     private static void setupPanel(JPanel startingPanel) {
-        startingPanel.setBackground(Color.gray);
+        startingPanel.setBackground(Color.cyan);
         startingPanel.setBounds(0, 0, WIDTH, HEIGHT);
         startingPanel.setLayout(null);
     }
 
+    // MODIFIES: this
     // EFFECTS: Displays all the instructions on how to select the book the user wants to purchase
     private static void allBookInstructions(JPanel panel, String bookType) {
         JLabel title = new JLabel(bookType);
@@ -454,7 +471,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         panel.add(booksInstructions2);
     }
 
-    // Displays the available information in relation to a certain book
+    // MODIFIES: this
+    // EFFECTS: Displays the available information in relation to a certain book
     private void viewBookInfo(Book book) {
         bookToAdd = book;
         bookInfo = new JPanel();
@@ -484,6 +502,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(bookInfo);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Displays book name, author and message if book is successfully added to the cart
     private void displayBookDetails(Book book) {
         JLabel bookName = new JLabel(book.getName());
         bookName.setFont(new Font("Serif", Font.PLAIN, 30));
@@ -507,6 +527,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         bookInfo.add(successMessage);
     }
 
+    // MODIFIES: this
     // EFFECTS: Shows all the items in the cart with the breakdown of the payable amount.
     //          User can choose to pay or return to the main menu
     public void viewCart() {
@@ -537,6 +558,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(viewCartPanel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Displays output when user tries accessing the cart while there are no book in it
     private void displayEmptyCart() {
         JLabel emptyCart = new JLabel("There are currently no books in the cart");
@@ -550,6 +572,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         viewCartPanel.add(mainMenuButton);
     }
 
+    // MODIFIES: this
     // EFFECTS: Generates a table with the book name, price, quantity and total amount of each book in the cart
     private void generateTableWithCartItems() {
         JLabel name = new JLabel(Customer.getFirstName() + " " + Customer.getLastName());
@@ -572,6 +595,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         viewCartPanel.add(scrollPane);
     }
 
+    // MODIFIES: this
     // EFFECTS: Calculates and displays the breakdown of how the final payable amount is calculated
     private void costCalculation() {
         JLabel totalAmount = new JLabel("Total = " + rawAmount + " CAD");
@@ -604,6 +628,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         viewCartPanel.add(amountPayableLabel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Accepts the users delivery address, credit card number and cvv in order to
     //          process the payment for their order. Otherwise, user can return to main menu.
     private void checkOutScreen() {
@@ -631,6 +656,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         frame.setContentPane(checkOutPanel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Accepts user's delivery address
     private void enterAddress() {
         JLabel addressLabel = new JLabel("Desired delivery address");
@@ -643,6 +669,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         checkOutPanel.add(address);
     }
 
+    // MODIFIES: this
     // EFFECTS: Accepts users Credit card information
     private void enterCreditCardInfo() {
         JLabel cardNumberLabel = new JLabel("16 digit Credit Card Number:");
@@ -663,6 +690,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         checkOutPanel.add(cvvLabel);
     }
 
+    // MODIFIES: this
     // EFFECTS: Displays the after payment is processed and the user checks out.
     private void exitSequence() {
         JPanel exitPanel = new JPanel();
@@ -693,6 +721,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
 
     // CITATION: Code obtained and modified from JsonSerializationDemo
     //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // MODIFIES: this
     // EFFECTS: Saves content of the cart to the file JSON_STORE.
     //          Throws exception if unable to write to the desired file.
     private void saveCart() {
@@ -710,7 +739,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
 
     // CITATION: Code obtained and modified from JsonSerializationDemo
     //           URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-    // MODIFIES: cart
+    // MODIFIES: this, cart
     // EFFECTS: loads cart from file. Throws exception if file to load from cannot be found.
     private void loadCart() {
         try {
@@ -737,6 +766,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this, Customer
+    // EFFECTS: Produces the desired output if a certain button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enter) {
@@ -763,6 +794,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         playSound(SOUNDLOCATION);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Produces the desired output if a certain button is pressed
     private void checkOtherButtons(ActionEvent e) {
         if (e.getSource() == booksButton) {
             viewGenres();
@@ -783,6 +816,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Produces the desired output if a certain button is pressed
     private void checkOtherButtons2(ActionEvent e) {
         if (e.getSource() == percyJButton) {
             viewBookInfo(PERCYJACKSON);
@@ -805,6 +840,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this, cart
+    // EFFECTS: Produces the desired output if a certain button is pressed
     private void checkOtherButtons3(ActionEvent e) {
         if (e.getSource() == daVinciButton) {
             viewBookInfo(THEDAVINCICODE);
@@ -830,6 +867,8 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this, Customer
+    // EFFECTS: Produces the desired output if a certain button is pressed
     private void checkOtherButtons4(ActionEvent e) {
         if (e.getSource() == payNowButton) {
             checkOutScreen();
