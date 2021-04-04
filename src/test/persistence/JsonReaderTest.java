@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.NegativeQuantityException;
 import model.*;
 
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,18 @@ public class JsonReaderTest extends JsonTest {
             assertEquals(2, books.size());
             checkBook("Archies", "Vic Bloom", "Comics", 9, 2, books.get(0));
             checkBook("Gone Girl", "Gillian Flynn", "Mystery", 4, 1, books.get(1));
+        } catch (IOException e) {
+            fail("Couldn't read from file");
+        }
+    }
+
+    @Test
+    void testReaderNegativeQuantity() {
+        try {
+            JsonReader reader = new JsonReader("./data/testReaderNegativeQuantity.json");
+            Cart c = reader.read();
+            List<Book> books = c.getBooksInCart();
+            assertEquals(1, books.size());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
