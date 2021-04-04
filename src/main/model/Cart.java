@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 //Represents the Shopping Cart of the customer
 public class Cart implements Writable {
+
     private static ArrayList<Book> booksInCart;
 
     //EFFECTS: Initialises the ArrayList booksInCart which contains all the books that have been

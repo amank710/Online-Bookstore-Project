@@ -10,25 +10,23 @@ public class Customer {
     private static Double deliveryCost;
     private static String address;
 
-    static Customer customer = new Customer();
-
     public static void setFirstName(String name1) {
         firstName = name1;
     }
 
-    public static void setLastName(String name2) {
+    public void setLastName(String name2) {
         lastName = name2;
     }
 
-    public static void setEmail(String email) {
-        customer.email = email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public static void setDeliveryCost(Double deliveryCost) {
+    public void setDeliveryCost(Double deliveryCost) {
         Customer.deliveryCost = deliveryCost;
     }
 
-    public static void setDeliveryCity(City deliveryCity) {
+    public void setDeliveryCity(City deliveryCity) {
         Customer.deliveryCity = deliveryCity;
         setDeliveryCost(deliveryCity.getDeliveryCharge());
     }

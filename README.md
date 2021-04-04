@@ -36,3 +36,16 @@ These methods are the "addToCart" method and the "discount" method.
 The exception thrown by the "addToCart" method is being caught in either the "BookstoreGUI" class or 
 the "JsonReader" class.
 The exception thrown by the "discount" method is being caught in the "BookstoreGUI" class.
+
+### Phase 4: Task 3
+
+- If I had more time to work on this project I would store the books available for sale as an
+enumeration insead of different self-referential fields in the Book class. 
+- I would also store the different cities available for delivery in an enumeration insead of different 
+self-referential fields in the City class. 
+- Right now the Bookstore GUI is temporarily keeping track of which book is being added to the cart
+at some given moment. I would try to remove this association between BookstoreGUI and Book, and either 
+remove the relation between the two completely or make it a dependance relationship instead.
+- Since each customer has a unique cart, I would remove the association between BookstoreGUI and Cart. I would then make
+and association relationship between Customer and Cart. This would allow the UI to be associated with less of 
+the backend implementation.

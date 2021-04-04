@@ -38,6 +38,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     private double discountedPrice;
     private Book bookToAdd;
     private Cart cart = new Cart();
+    private Customer customer = new Customer();
 
     private JFrame frame;
 
@@ -577,7 +578,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: Generates a table with the book name, price, quantity and total amount of each book in the cart
     private void generateTableWithCartItems() {
-        JLabel name = new JLabel(Customer.getFirstName() + " " + Customer.getLastName());
+        JLabel name = new JLabel(customer.getFirstName() + " " + customer.getLastName());
         name.setBounds(10,47,400,50);
         viewCartPanel.add(name);
         String[] cols = {"Item","Unit Price (CAD)", "Quantity", "Total (CAD)"};
@@ -616,10 +617,10 @@ public class BookstoreGUI extends JFrame implements ActionListener {
             JLabel salesTaxLabel = new JLabel("Sales Tax = " + salesTax + " CAD");
             salesTaxLabel.setBounds(10, 310, 400, 20);
 
-            JLabel freightCharges = new JLabel("Freight Charges = " + Customer.getDeliveryCost() + " CAD");
+            JLabel freightCharges = new JLabel("Freight Charges = " + customer.getDeliveryCost() + " CAD");
             freightCharges.setBounds(10, 330, 400, 20);
 
-            double finalAmount = discountedPrice + Customer.getDeliveryCity().getDeliveryCharge() + salesTax;
+            double finalAmount = discountedPrice + customer.getDeliveryCity().getDeliveryCharge() + salesTax;
             finalAmount = Double.parseDouble(df2.format(finalAmount));
             JLabel amountPayable = new JLabel("Amount Payable = " + finalAmount + " CAD");
             amountPayable.setBounds(10, 350, 400, 20);
@@ -709,7 +710,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         debitedAccount.setBounds(120,150,400,50);
         debitedAccount.setFont(new Font("Serif", Font.PLAIN, 20));
 
-        JLabel message = new JLabel("Your order will reach " + Customer.getDeliveryCity().getCityName() + " in 3 days");
+        JLabel message = new JLabel("Your order will reach " + customer.getDeliveryCity().getCityName() + " in 3 days");
         message.setBounds(120,170,400,50);
         message.setFont(new Font("Serif", Font.PLAIN, 20));
 
@@ -781,20 +782,20 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enter) {
-            Customer.setFirstName(firstName.getText());
-            Customer.setLastName(lastName.getText());
-            Customer.setEmail(email.getText());
+            customer.setFirstName(firstName.getText());
+            customer.setLastName(lastName.getText());
+            customer.setEmail(email.getText());
             String itemAt = (String) cityList.getItemAt(cityList.getSelectedIndex());
             if ("Toronto".equals(itemAt)) {
-                Customer.setDeliveryCity(TORONTO);
+                customer.setDeliveryCity(TORONTO);
             } else if ("Ottawa".equals(itemAt)) {
-                Customer.setDeliveryCity(OTTAWA);
+                customer.setDeliveryCity(OTTAWA);
             } else if ("Edmonton".equals(itemAt)) {
-                Customer.setDeliveryCity(EDMONTON);
+                customer.setDeliveryCity(EDMONTON);
             } else if ("Calgary".equals(itemAt)) {
-                Customer.setDeliveryCity(CALGARY);
+                customer.setDeliveryCity(CALGARY);
             } else {
-                Customer.setDeliveryCity(VANCOUVER);
+                customer.setDeliveryCity(VANCOUVER);
             }
             mainMenu();
 
@@ -887,7 +888,7 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == payNowButton) {
             checkOutScreen();
         } else if (e.getSource() == confirmPaymentButton) {
-            Customer.setAddress(address.getText());
+            customer.setAddress(address.getText());
             exitSequence();
         } else if (e.getSource() == loadButton) {
             loadCart();

@@ -28,18 +28,6 @@ public class Book implements Writable {
     public static final Book DEATHOFASALESMAN = new Book("Death of a Salesman","Arthur Miller","Drama", 4.20);
     public static final Book TOKILLAMOCKINGBIRD = new Book("To Kill a Mockingbird","Harper Lee","Drama", 5.00);
 
-    public static final int NO_OF_GENRES = 4;
-    public static final String[] GENRES = new String[] {"Action","Comics","Mystery","Drama"};
-
-    public static final int NO_OF_ACTIONBOOKS = 4;
-    public static final int NO_OF_COMICBOOKS = 4;
-    public static final int NO_OF_MYSTERYBOOKS = 4;
-    public static final int NO_OF_DRAMABOOKS = 4;
-    public static final Book[] ACTIONBOOKS = new Book[] {PERCYJACKSON,HARRYPOTTER,ERAGON,THEMAZERUNNER};
-    public static final Book[] COMICBOOKS = new Book[] {BONE,ARCHIES,XMEN,PHANTOM};
-    public static final Book[] MYSTERYBOOKS = new Book[] {THEDAVINCICODE,THEBIGSLEEP,GONEGIRL,SHERLOCKHOLMES};
-    public static final Book[] DRAMABOOKS = new Book[] {FAULTINOURSTARS,MACBETH,DEATHOFASALESMAN,TOKILLAMOCKINGBIRD};
-
 
     //REQUIRES: A positive value for the price of the book
     //EFFECTS: Initialises the name, author, genre and the price of a book. Also initialises the number of that specific
