@@ -211,4 +211,9 @@ public class CartTest {
             // Expected
         }
     }
+
+    @Test
+    void testCalculateDiscountNegativeAmount() {
+            assertEquals(-1.1 * 0.2, cartTest.calculateDiscount(-1.1));
+    }
 }

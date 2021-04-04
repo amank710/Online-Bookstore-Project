@@ -64,7 +64,7 @@ public class Cart implements Writable {
     }
 
     // EFFECTS: Calculates and returns the discount awarded based on the Raw Price of the books.
-    private static double calculateDiscount(double rawAmount) {
+    static double calculateDiscount(double rawAmount) {
         if (rawAmount >= 0.0) {
             if (rawAmount < 5.0) {
                 return 0;
