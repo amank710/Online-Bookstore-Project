@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.NegativeQuantityException;
 import model.*;
 import org.junit.jupiter.api.Test;
 
@@ -59,6 +60,8 @@ public class JsonWriterTest extends JsonTest {
             checkBook("Venom", "Ryan Stegman","Comic",2, 4, books.get(1));
 
         } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        } catch (NegativeQuantityException e1) {
             fail("Exception should not have been thrown");
         }
     }

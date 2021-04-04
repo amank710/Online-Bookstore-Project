@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidAmountException;
+import exceptions.NegativeQuantityException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -16,11 +18,14 @@ public class Cart implements Writable {
         booksInCart = new ArrayList<Book>();
     }
 
-    //REQUIRES: quantity is >=0
     //MODIFIES: this and Book
     //EFFECTS: Adds a book to the cart if it is not already there. If the book is already in the cart
-    //         it just increments the number of that book in the cart.
-    public static void addToCart(Book book, int quantity) {
+    //         it just increments the number of that book in the cart. Throws exception if quantity of
+    //         books to add is negative
+    public static void addToCart(Book book, int quantity) throws NegativeQuantityException {
+        if (quantity < 0) {
+            throw new NegativeQuantityException();
+        }
         book.addQuantity(quantity);
         if (booksInCart.isEmpty()) {
             booksInCart.add(book);
@@ -47,10 +52,18 @@ public class Cart implements Writable {
         return booksInCart.size();
     }
 
-    //REQUIRES: rawAmount > 0
-    //EFFECTS: Calculates and returns the discount awarded based on the Raw Price of the books. The discounts are based
-    //         on the the deals shown in the opening screen of the application
-    public static double discount(double rawAmount) {
+    //EFFECTS: Returns the discount awarded based on the Raw Price of the books. The discounts are based
+    //         on the the deals shown in the opening screen of the application. Throws exception if raw price
+    //         is negative.
+    public static double discount(double rawAmount) throws InvalidAmountException {
+        if (rawAmount < 0) {
+            throw new InvalidAmountException();
+        }
+        return calculateDiscount(rawAmount);
+    }
+
+    // EFFECTS: Calculates and returns the discount awarded based on the Raw Price of the books.
+    private static double calculateDiscount(double rawAmount) {
         if (rawAmount >= 0.0) {
             if (rawAmount < 5.0) {
                 return 0;

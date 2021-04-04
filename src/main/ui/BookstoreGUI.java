@@ -1,5 +1,7 @@
 package ui;
 
+import exceptions.InvalidAmountException;
+import exceptions.NegativeQuantityException;
 import model.Book;
 import model.Cart;
 import model.Customer;
@@ -601,31 +603,39 @@ public class BookstoreGUI extends JFrame implements ActionListener {
         JLabel totalAmount = new JLabel("Total = " + rawAmount + " CAD");
         totalAmount.setBounds(10,250,400,20);
 
-        double discountAwarded = Double.parseDouble(df2.format(cart.discount(rawAmount)));
-        JLabel discountLabel = new JLabel("Discount = " + discountAwarded + " CAD");
-        discountLabel.setBounds(10,270,400,20);
+        try {
+            double discountAwarded = Double.parseDouble(df2.format(cart.discount(rawAmount)));
+            JLabel discount = new JLabel("Discount = " + discountAwarded + " CAD");
+            discount.setBounds(10, 270, 400, 20);
 
-        discountedPrice = rawAmount - discountAwarded;
-        JLabel discountedTotalLabel = new JLabel("Discounted Price = " + discountedPrice + " CAD");
-        discountedTotalLabel.setBounds(10,290,400,20);
+            discountedPrice = rawAmount - discountAwarded;
+            JLabel discountedTotal = new JLabel("Discounted Price = " + discountedPrice + " CAD");
+            discountedTotal.setBounds(10, 290, 400, 20);
 
-        double salesTax = Double.parseDouble(df2.format(0.12 * discountedPrice));
-        JLabel salesTaxLabel = new JLabel("Sales Tax = " + salesTax + " CAD");
-        salesTaxLabel.setBounds(10,310,400,20);
+            double salesTax = Double.parseDouble(df2.format(0.12 * discountedPrice));
+            JLabel salesTaxLabel = new JLabel("Sales Tax = " + salesTax + " CAD");
+            salesTaxLabel.setBounds(10, 310, 400, 20);
 
-        JLabel freightChargesLabel = new JLabel("Freight Charges = " + Customer.getDeliveryCost() + " CAD");
-        freightChargesLabel.setBounds(10,330,400,20);
+            JLabel freightCharges = new JLabel("Freight Charges = " + Customer.getDeliveryCost() + " CAD");
+            freightCharges.setBounds(10, 330, 400, 20);
 
-        double finalAmount = discountedPrice + Customer.getDeliveryCity().getDeliveryCharge() + salesTax;
-        finalAmount = Double.parseDouble(df2.format(finalAmount));
-        JLabel amountPayableLabel = new JLabel("Amount Payable = " + finalAmount + " CAD");
-        amountPayableLabel.setBounds(10,350,400,20);
-        viewCartPanel.add(totalAmount);
-        viewCartPanel.add(discountLabel);
-        viewCartPanel.add(discountedTotalLabel);
-        viewCartPanel.add(salesTaxLabel);
-        viewCartPanel.add(freightChargesLabel);
-        viewCartPanel.add(amountPayableLabel);
+            double finalAmount = discountedPrice + Customer.getDeliveryCity().getDeliveryCharge() + salesTax;
+            finalAmount = Double.parseDouble(df2.format(finalAmount));
+            JLabel amountPayable = new JLabel("Amount Payable = " + finalAmount + " CAD");
+            amountPayable.setBounds(10, 350, 400, 20);
+            addToViewCartPanel(totalAmount, discount, discountedTotal, salesTaxLabel, freightCharges, amountPayable);
+        } catch (InvalidAmountException e) {
+            System.out.println("Raw amount can not be a negative value");
+        }
+    }
+
+    private void addToViewCartPanel(JLabel total, JLabel discount, JLabel dt, JLabel st, JLabel fc, JLabel ap) {
+        viewCartPanel.add(total);
+        viewCartPanel.add(discount);
+        viewCartPanel.add(dt);
+        viewCartPanel.add(st);
+        viewCartPanel.add(fc);
+        viewCartPanel.add(ap);
     }
 
     // MODIFIES: this
@@ -859,9 +869,6 @@ public class BookstoreGUI extends JFrame implements ActionListener {
             viewBookInfo(DEATHOFASALESMAN);
         } else if (e.getSource() == mockingbirdButton) {
             viewBookInfo(TOKILLAMOCKINGBIRD);
-        } else if (e.getSource() == addToCartButton) {
-            cart.addToCart(bookToAdd,Integer.parseInt(enteredQuantity.getText()));
-            successMessage.setText("The book(s) have been added to your cart successfully!");
         } else {
             checkOtherButtons4(e);
         }
@@ -870,7 +877,14 @@ public class BookstoreGUI extends JFrame implements ActionListener {
     // MODIFIES: this, Customer
     // EFFECTS: Produces the desired output if a certain button is pressed
     private void checkOtherButtons4(ActionEvent e) {
-        if (e.getSource() == payNowButton) {
+        if (e.getSource() == addToCartButton) {
+            try {
+                cart.addToCart(bookToAdd,Integer.parseInt(enteredQuantity.getText()));
+                successMessage.setText("The book(s) have been added to your cart successfully!");
+            } catch (NegativeQuantityException negativeQuantityException) {
+                successMessage.setText("Cannot add a negative quantity of books");
+            }
+        } else if (e.getSource() == payNowButton) {
             checkOutScreen();
         } else if (e.getSource() == confirmPaymentButton) {
             Customer.setAddress(address.getText());

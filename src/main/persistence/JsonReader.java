@@ -1,6 +1,7 @@
 package persistence;
 
 
+import exceptions.NegativeQuantityException;
 import model.Book;
 import model.Cart;
 import org.json.JSONArray;
@@ -72,6 +73,10 @@ public class JsonReader {
         Double price = jsonObject.getDouble("price");
         int quantity = jsonObject.getInt("quantity");
         Book book = new Book(name,author,genre,price);
-        c.addToCart(book,quantity);
+        try {
+            c.addToCart(book,quantity);
+        } catch (NegativeQuantityException e) {
+            System.out.println("Can't add negative quantity");
+        }
     }
 }

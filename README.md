@@ -25,6 +25,14 @@ Thus, I felt strongly about trying to create a ***user-friendly online bookstore
 - As a user, I want to be able to enter my desired address for the delivery of the books
 - As a user, I want to be able to save my cart to file
 - As a user, I want to be able to be able to load my cart from file 
-- As a user, I want to be able to remove a book from my cart
 
-***NOTE:*** THE FIRST 10 USER STORIES HAVE BEEN IMPLEMENTED
+
+### Phase 4: Task 2
+
+I have chosen to make one of the classes in my model class robust. I added the "InavalidAmountException"
+and the "NegativeQuantityException" in the exceptions package.
+I have made the "Cart" class robust. There are 2 methods in this class that I modified.
+These methods are the "addToCart" method and the "discount" method.
+The exception thrown by the "addToCart" method is being caught in either the "BookstoreGUI" class or 
+the "JsonReader" class.
+The exception thrown by the "discount" method is being caught in the "BookstoreGUI" class.
